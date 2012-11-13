@@ -9,7 +9,7 @@ assert product.errors[:sku].any?
 assert product.errors[:supplier_id].any?
 assert product.errors[:unitinstock].any?
 assert product.errors[:price].any?
-assert product.errors[:category_id].any?
+assert product.errors[:catalog_id].any?
 assert product.errors[:description].any?
 assert product.errors[:image_url].any?
 end
