@@ -1,5 +1,22 @@
 class Product < ActiveRecord::Base
-  attr_accessible :category_id, :description, :image_url, :name, :price, :sku, :supplier_id, :unitinstock
+ has_many :line_items
+ before_destroy :ensure_not_referenced_by_any_line_item
+
+private
+
+
+
+# ensure that there are no line items referencing this product
+def ensure_not_referenced_by_any_line_item
+if line_items.empty?
+return true
+else
+errors.add(:base, 'Line Items present')
+return false
+end
+end
+
+ attr_accessible :category_id, :description, :image_url, :name, :price, :sku, :supplier_id, :unitinstock
 
 validates :name, :description, :image_url, :price, :sku, :category_id, :supplier_id, :unitinstock, presence: true
 
